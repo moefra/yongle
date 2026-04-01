@@ -10,6 +10,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+yongle-id.workspace = true
 
 [lints]
 workspace = true

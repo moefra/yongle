@@ -9,8 +9,8 @@ edition = "2024"
 license = "GPL-3.0-or-later"
 
 [workspace]
-members = ["yongle_core"]
-default-members = []
+members = ["yongle-core", "yongle-id"]
+default-members = ["yongle-core"]
 resolver = "3"
 
 [workspace.lints.clippy]
@@ -55,6 +55,18 @@ incremental = false
 inherits = "release"
 
 [workspace.dependencies]
-yongle-core = { path = "./yongle_core" }
+# self-host projects
+yongle-core = { path = "./yongle-core" }
+yongle-id = { path = "./yongle-id" }
 
+# rendering engine
+typst = "0.14"
 
+# error handling
+thiserror = "2.0"
+eyre = "0.6"
+color-eyre = "0.6"
+
+# micro utilities
+unicode-ident = "1.0"
+semver = "1.0"
