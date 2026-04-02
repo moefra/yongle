@@ -9,7 +9,14 @@ edition = "2024"
 license = "GPL-3.0-or-later"
 
 [workspace]
-members = ["yongle-core", "yongle-id"]
+members = [
+    "ylctl",
+    "yongle-cas",
+    "yongle-core",
+    "yongle-digest",
+    "yongle-id",
+    "yongle-primitives",
+]
 default-members = ["yongle-core"]
 resolver = "3"
 
@@ -58,15 +65,40 @@ inherits = "release"
 # self-host projects
 yongle-core = { path = "./yongle-core" }
 yongle-id = { path = "./yongle-id" }
+yongle-digest = { path = "./yongle-digest" }
+yongle-cas = { path = "./yongle-cas" }
+yongle-primitives = { path = "./yongle-primitives" }
 
 # rendering engine
 typst = "0.14"
 
-# error handling
+# io
+tokio = "1.50"
+
+# serialization
+serde = "1.0"
+rkyv = "0.8"
+
+# error handling and logging
 thiserror = "2.0"
 eyre = "0.6"
 color-eyre = "0.6"
+tracing = "0.1"
+
+# collections
+papaya = "0.2"
+moka = "0.12"
+camino = "1.2"
+nohash-hasher = "0.2"
 
 # micro utilities
 unicode-ident = "1.0"
 semver = "1.0"
+async-trait = "0.1"
+
+# memory management
+mimalloc = "0.1.48"
+
+# hashing
+ahash = "0.8"
+blake3 = "1.8"

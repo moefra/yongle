@@ -7,7 +7,7 @@ use semver::Version;
 use thiserror::Error;
 use unicode_ident::{is_xid_continue, is_xid_start};
 
-/// A fully-qualified Yongle identifier composed of domain, version, and path.
+/// A fully-qualified identifier composed of domain, version, and path.
 ///
 /// The textual representation is `<domain>@<version>//<path>`, where domain
 /// segments are dot-separated, path segments are slash-separated, and every
@@ -167,7 +167,10 @@ mod tests {
     fn parses_single_path_segment() {
         let name = QualifiedName::from_str("com.example@1.0.0//path").unwrap();
 
-        assert_eq!(name.domain_segments(), ["com".to_owned(), "example".to_owned()]);
+        assert_eq!(
+            name.domain_segments(),
+            ["com".to_owned(), "example".to_owned()]
+        );
         assert_eq!(name.version().to_string(), "1.0.0");
         assert_eq!(name.path_segments(), ["path".to_owned()]);
         assert_eq!(name.to_string(), "com.example@1.0.0//path");
