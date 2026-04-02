@@ -73,10 +73,11 @@ yongle-primitives = { path = "./yongle-primitives" }
 typst = "0.14"
 
 # io
-tokio = "1.50"
+tokio = { version = "1.50", features = ["full"] }
 
 # serialization
-serde = "1.0"
+serde_core = "1.0"
+serde = { version = "1.0", features = ["derive"] }
 rkyv = "0.8"
 
 # error handling and logging
@@ -86,18 +87,22 @@ color-eyre = "0.6"
 tracing = "0.1"
 
 # collections
-papaya = "0.2"
-moka = "0.12"
 camino = "1.2"
+papaya = "0.2"
+smol_str = { version = "0.3",  features = ["std", "serde"] }
+ecow = "0.2"
+moka = { version = "0.12", features = ["sync", "future"] }
 nohash-hasher = "0.2"
+arrayvec = "0.7"
 
 # micro utilities
 unicode-ident = "1.0"
 semver = "1.0"
 async-trait = "0.1"
+hex = "0.4"
 
 # memory management
-mimalloc = "0.1.48"
+mimalloc = "0.1"
 
 # hashing
 ahash = "0.8"

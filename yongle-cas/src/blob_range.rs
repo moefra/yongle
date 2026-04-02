@@ -4,18 +4,11 @@ use std::{
     ops::{RangeFrom, RangeFull},
 };
 use thiserror::Error;
-use tonic::Status;
 
 #[derive(Error, Debug)]
 pub enum BlobRangeError {
     #[error("length is zero. input start {start:0} and length {length:?}")]
     ZeroLength { start: u64, length: u64 },
-}
-
-impl From<BlobRangeError> for Status {
-    fn from(err: BlobRangeError) -> Self {
-        Status::invalid_argument(format!("Failed to convert range: {:?}", err))
-    }
 }
 
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash, Archive, Serialize, Deserialize)]
@@ -41,7 +34,7 @@ impl BlobRange {
     ///
     /// This usually returns `Some(BlobRange)` if the length is non-zero, otherwise returns `None`.
     ///
-    /// In other terms, the `From<Range<u64>>` may panic if someone write `0..0` or `100..100`, so this is not supported.
+    /// In other terms, the `From<Range<u64>>` may return error if someone write `0..0` or `100..100`, so this is not supported.
     #[inline]
     pub fn new(start: u64, length: Option<u64>) -> Result<Self, BlobRangeError> {
         if let Some(length) = length {
@@ -117,22 +110,5 @@ impl From<RangeFrom<u64>> for BlobRange {
 impl From<RangeFull> for BlobRange {
     fn from(_: RangeFull) -> Self {
         Self::full()
-    }
-}
-
-impl TryFrom<crate::protobuf::range::BlobRange> for BlobRange {
-    type Error = BlobRangeError;
-
-    fn try_from(value: crate::protobuf::range::BlobRange) -> Result<Self, Self::Error> {
-        Self::new(value.start, value.length)
-    }
-}
-
-impl Into<crate::protobuf::range::BlobRange> for BlobRange {
-    fn into(self) -> crate::protobuf::range::BlobRange {
-        crate::protobuf::range::BlobRange {
-            start: self.start,
-            length: self.length.map(|l| l.get()),
-        }
     }
 }

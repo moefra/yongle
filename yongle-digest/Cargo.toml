@@ -13,6 +13,13 @@ license.workspace = true
 blake3.workspace = true
 rkyv.workspace = true
 camino.workspace = true
+smol_str.workspace = true
+serde.workspace = true
+ecow.workspace = true
+arrayvec.workspace = true
+hex.workspace = true
+serde_core.workspace = true
+async-trait.workspace = true
 
 [lints]
 workspace = true

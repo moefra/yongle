@@ -80,6 +80,25 @@ impl Blake3Hash for smol_str::SmolStr {
     }
 }
 
+impl Blake3Hash for ecow::EcoString {
+    fn hash_into_blake3(&self, hasher: &mut blake3::Hasher) {
+        hasher.update(b"::ecow::EcoString");
+        self.len().hash_into_blake3(hasher);
+        hasher.update(self.as_bytes());
+    }
+}
+
+impl<T: Blake3Hash> Blake3Hash for ecow::EcoVec<T> {
+    fn hash_into_blake3(&self, hasher: &mut blake3::Hasher) {
+        hasher.update(b"::ecow::EcoVec");
+        self.len().hash_into_blake3(hasher);
+
+        for value in self.iter() {
+            value.hash_into_blake3(hasher);
+        }
+    }
+}
+
 /// Allow calling on String
 impl Blake3Hash for String {
     fn hash_into_blake3(&self, hasher: &mut blake3::Hasher) {

@@ -14,3 +14,5 @@ nohash-hasher.workspace = true
 ahash.workspace = true
 papaya.workspace = true
 moka.workspace = true
+smol_str.workspace = true
+ecow.workspace = true
