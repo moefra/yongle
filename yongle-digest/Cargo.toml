@@ -20,6 +20,8 @@ arrayvec.workspace = true
 hex.workspace = true
 serde_core.workspace = true
 async-trait.workspace = true
+sha2.workspace = true
+
 
 [lints]
 workspace = true

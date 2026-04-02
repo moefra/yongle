@@ -3,8 +3,20 @@ use async_trait::async_trait;
 use std::{path::PathBuf, pin::Pin};
 use thiserror::Error;
 use tokio::io::AsyncRead;
+use yongle_digest::blake3::Blake3Hash;
 
 use crate::blob_range::BlobRange;
+
+pub enum HashAlgorithm {
+    Blake3(Blake3Hash),
+}
+
+pub struct Digest {
+    pub algo: HashAlgorithm,
+    pub bytes: Box<[u8]>,
+}
+
+pub struct BlobId(pub Digest);
 
 #[derive(Error, Debug)]
 pub enum CasError {}

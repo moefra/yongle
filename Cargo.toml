@@ -107,3 +107,4 @@ mimalloc = "0.1"
 # hashing
 ahash = "0.8"
 blake3 = "1.8"
+sha2 = "0.11.0"
