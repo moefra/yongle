@@ -3,7 +3,7 @@ use async_trait::async_trait;
 use std::{path::PathBuf, pin::Pin};
 use thiserror::Error;
 use tokio::io::AsyncRead;
-use yongle_digest::blake3::Blake3Hash;
+use yongle_digest::blake3::Hash as Blake3Hash;
 
 use crate::blob_range::BlobRange;
 
