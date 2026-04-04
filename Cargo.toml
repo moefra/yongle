@@ -12,9 +12,13 @@ license = "GPL-3.0-or-later"
 members = [
     "ylctl",
     "yongle-cas",
+    "yongle-cas-meta",
+    "yongle-cas-types",
     "yongle-core",
     "yongle-digest",
+    "yongle-gc",
     "yongle-id",
+    "yongle-manifest",
     "yongle-primitives",
 ]
 default-members = ["yongle-core"]
@@ -68,6 +72,10 @@ yongle-id = { path = "./yongle-id" }
 yongle-digest = { path = "./yongle-digest" }
 yongle-cas = { path = "./yongle-cas" }
 yongle-primitives = { path = "./yongle-primitives" }
+yongle-cas-types = { path = "./yongle-cas-types" }
+yongle-gc = { path = "./yongle-gc" }
+yongle-manifest = { path = "./yongle-manifest" }
+yongle-cas-meta = { path = "./yongle-cas-meta" }
 
 # rendering engine
 typst = "0.14"
@@ -89,7 +97,7 @@ tracing = "0.1"
 # collections
 camino = "1.2"
 papaya = "0.2"
-smol_str = { version = "0.3",  features = ["std", "serde"] }
+smol_str = { version = "0.3", features = ["std", "serde"] }
 ecow = "0.2"
 moka = { version = "0.12", features = ["sync", "future"] }
 nohash-hasher = "0.2"

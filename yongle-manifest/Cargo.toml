@@ -1,5 +1,5 @@
 [package]
-name = "yongle-cas"
+name = "yongle-manifest"
 version.workspace = true
 authors.workspace = true
 description.workspace = true
@@ -10,10 +10,6 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
-yongle-cas-types.workspace = true
-yongle-digest.workspace = true
-async-trait.workspace = true
-tokio.workspace = true
 
 [lints]
 workspace = true

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/ylctl/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-cas-meta/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-cas-types/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-cas/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-core/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-digest/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-gc/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-id/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-manifest/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/yongle-primitives/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
