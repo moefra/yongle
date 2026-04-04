@@ -10,4 +10,5 @@ pub use stat::BlobStat;
 use yongle_digest::Digest;
 
 /// A blob identifier, consisting of a digest as unique identifier.
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct BlobId(pub Digest);

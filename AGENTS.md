@@ -1,87 +1,103 @@
 # AGENTS.md
 
-This repository is the workspace for **Yongle**.
+这个仓库是 **Yongle** 的工作区。
 
-Yongle is a structured learning and knowledge-processing system.
-Its long-term direction is not "just a note app" and not "just an SRS app".
-It aims to become a system that combines:
+Yongle 是一个结构化学习与知识处理系统。
+它的长期方向不是“只是一个笔记应用”，也不是“只是一个 SRS 应用”。
+它希望逐步演化为一个同时具备以下能力的系统：
 
 - structured knowledge authoring
 - deterministic rendering and extraction
 - spaced repetition
 - incremental reading
-- workflow/state-machine-based learning processes
+- workflow / state-machine based learning processes
 - a reusable non-GUI core
 - multiple frontends and tools built around the core
 
-The codebase is expected to evolve toward a layered architecture:
+代码库预期会朝以下分层架构演化：
 
-1. core domain and shared abstractions
-2. parsing / compiling / extraction / query logic
-3. learning pipeline and scheduling
-4. reusable CLI / service / application interfaces
-5. GUI and external integration layers
+1. 核心领域模型与共享抽象
+2. 解析、编译、提取与查询逻辑
+3. 学习流水线与调度
+4. 可复用的 CLI、服务与应用接口
+5. GUI 与外部集成层
 
-Current naming convention:
-- workspace crates should generally use the `yongle_xxx` prefix
-- `yongle_core` is the top-level library crate that integrates other crates and serves as the main reusable core library
+当前命名约定：
 
----
-
-## Primary instructions for the coding agent
-
-When working in this repository, follow these rules strictly.
-
-### 1. Preserve architecture clarity
-
-- Prefer small, explicit modules.
-- Keep boundaries clear between domain logic, infrastructure, UI-facing integration, and glue code.
-- Do not place GUI-specific concerns into core crates.
-- Do not place Electron-specific or frontend-specific assumptions into reusable Rust crates.
-- Keep `yongle_core` as an integration-oriented crate, not a dumping ground for unrelated logic.
-
-### 2. Prefer reuse over duplication
-
-- If logic can live in a focused crate, do not bury it inside a higher-level crate.
-- If a concept is likely to be reused by CLI, GUI, tests, or future services, place it in a reusable crate/module.
-- Avoid ad-hoc utilities when a domain abstraction is more appropriate.
-
-### 3. Optimize for long-term maintainability
-
-- Prefer explicit types over clever shortcuts.
-- Prefer readable control flow over compact but opaque code.
-- Avoid unnecessary macro-heavy designs unless they clearly improve the architecture.
-- Keep public APIs stable, minimal, and intentional.
-- Design with future extraction, scheduling, and workflow/state-machine logic in mind.
-
-### 4. Do not introduce accidental complexity
-
-- Do not over-generalize prematurely.
-- Do not add configuration, traits, or abstraction layers unless they solve a real problem in this repository.
-- Do not introduce hidden global state.
-- Minimize cross-crate coupling.
+- workspace 中的 crate 一般应使用 `yongle_xxx` 前缀
+- `yongle_core` 是顶层库 crate，用于集成其他 crate，并作为主要的可复用核心库
 
 ---
 
-## Documentation and comments
+## 面向编码代理的主要指令
 
-### 5. All code comments must be written in English
+在这个仓库中工作时，严格遵守以下规则。
 
-This applies to:
+### 1. 保持架构清晰
 
-- line comments
-- block comments
+- 优先选择小而明确的模块。
+- 明确区分领域逻辑、基础设施、面向 UI 的集成层和胶水代码的边界。
+- 不要把 GUI 专属关注点放进核心 crate。
+- 不要把 Electron 专属或前端专属假设写进可复用的 Rust crate。
+- 保持 `yongle_core` 作为面向集成的 crate，不要把它变成无关逻辑的堆放点。
+
+### 2. 优先复用，而不是重复造轮子
+
+- 如果某段逻辑可以放进一个职责聚焦的 crate，就不要把它埋进更高层的 crate。
+- 如果一个概念很可能会被 CLI、GUI、测试或未来服务复用，就把它放进可复用的 crate 或模块。
+- 避免为了图快写临时工具函数；如果问题本质上是领域抽象，就应该按领域抽象来建模。
+
+### 3. 以长期可维护性为先
+
+- 优先使用显式类型，而不是耍巧的捷径。
+- 优先使用可读的控制流，而不是紧凑但晦涩的写法。
+- 除非能明显改善架构，否则避免引入不必要、过重依赖宏的设计。
+- 保持公共 API 稳定、最小且有意图。
+- 设计时考虑未来的提取、调度与 workflow / state-machine 逻辑。
+
+### 4. 不要引入偶发复杂度
+
+- 不要过早泛化。
+- 不要为了“可能以后有用”引入配置、trait 或抽象层，除非它已经解决了当前仓库里的真实问题。
+- 不要引入隐藏的全局状态。
+- 尽量降低跨 crate 耦合。
+
+---
+
+## 文档与注释
+
+### 5. 代码相关文档必须使用英文
+
+以下内容必须保持英文：
+
+- 行内注释
+- 块注释
 - doc comments
-- module-level documentation
-- public API documentation
+- 模块级文档
+- 公共 API 文档
+- crate-level docs
+- 错误类型说明
+- trait contract / safety / invariant 说明
 
-Do not write comments in Chinese or mixed Chinese-English.
+不要在这些位置使用中文，也不要写中英混合注释。
 
-### 6. Public items must be documented
+项目级说明文档优先使用中文，例如：
 
-Every meaningful `pub` item must have documentation comments.
+- `README`
+- `docs/` 下的大部分设计文档
+- 架构说明
+- 设计取舍记录
+- 开发日志
+- roadmap
+- 临时 RFC 或草案
 
-This includes, when applicable:
+Rust 社区惯例通常保持英文的文件或字段不在这条中文化策略内，例如 `Cargo.toml` 中的 crate 描述、发布元数据和类似内容。
+
+### 6. 公共项必须有文档
+
+每一个有实际意义的 `pub` 项都必须有文档注释。
+
+通常包括：
 
 - `pub struct`
 - `pub enum`
@@ -90,124 +106,127 @@ This includes, when applicable:
 - `pub const`
 - `pub static`
 - `pub type`
-- important `pub mod`
+- 重要的 `pub mod`
 
-The documentation does not need to be verbose, but it must explain the purpose of the item clearly.
+文档不需要冗长，但必须清楚说明该项的用途。
 
-Minimum standard:
-- what the item is for
-- what role it plays in the system
-- important invariants or usage constraints when relevant
+最低标准：
 
-For complex public APIs, also document:
-- ownership/lifetime expectations
-- error semantics
-- thread-safety assumptions
-- whether the API is stable, low-level, or integration-oriented
+- 这个项是做什么的
+- 它在系统中扮演什么角色
+- 在相关时，需要说明的重要不变量或使用约束
 
-### 7. Internal comments should be sparse and meaningful
+对于较复杂的公共 API，还应说明：
 
-- Do not comment obvious code.
-- Use comments to explain intent, invariants, tradeoffs, and non-obvious decisions.
-- Prefer improving names and structure before adding comments.
+- ownership / lifetime 预期
+- 错误语义
+- 线程安全假设
+- 它是稳定接口、底层接口，还是面向集成的接口
 
----
+### 7. 内部注释应当稀少且有意义
 
-## Code style expectations
-
-### 8. Prefer explicit, idiomatic Rust
-
-- Follow idiomatic Rust naming and module organization.
-- Use `Result`/`Option` carefully and intentionally.
-- Avoid `unwrap()` / `expect()` in production paths unless failure is truly impossible or explicitly justified.
-- Propagate errors with meaningful types where practical.
-- Avoid panics in library code unless they represent violated invariants.
-
-### 9. Keep APIs narrow
-
-- Expose the smallest public surface necessary.
-- Default to private visibility.
-- Only make items `pub` when they are intentionally part of a crate's external API.
-
-### 10. Write code that is easy to test
-
-- Prefer pure logic where possible.
-- Separate parsing, transformation, and side effects.
-- Keep filesystem, process, network, and platform interaction behind clear boundaries.
+- 不要给显而易见的代码写注释。
+- 注释应解释意图、不变量、权衡和不明显的设计决定。
+- 在加注释之前，先优先改进命名和结构。
 
 ---
 
-## Planning guidance
+## 代码风格预期
 
-### 11. Favor the long-term product direction
+### 8. 优先显式、符合惯例的 Rust
 
-When making local design decisions, prefer choices that fit the long-term Yongle direction:
+- 遵循 idiomatic Rust 的命名与模块组织方式。
+- 有意识地使用 `Result` / `Option`。
+- 在生产路径中避免 `unwrap()` / `expect()`，除非失败在逻辑上真正不可能发生，或已经被明确论证。
+- 在实际可行时，传播带有明确语义的错误类型。
+- 在库代码中避免 panic，除非它表示某个不变量已经被违反。
 
-- structured knowledge instead of loose text blobs
-- deterministic and inspectable processing instead of opaque magic
-- note content as the source of truth, with derived views/projections
-- learning workflows as explicit processes, not vague chat behavior
-- reusable non-GUI core first, GUI second
+### 9. 保持 API 收敛
 
-### 12. Anticipate future subsystems
+- 只暴露必要的最小公共表面。
+- 默认使用私有可见性。
+- 只有当某个项明确属于 crate 的外部 API 时，才把它设为 `pub`。
 
-Code should not hardcode assumptions that would block future work in areas such as:
+### 10. 编写易于测试的代码
 
-- Typst-first or structured authoring pipelines
-- extraction of semantic units from source documents
-- flashcard projection from the same semantic source
-- incremental reading workflows
-- agent/state-machine-based learning orchestration
-- cross-platform desktop integration
-- CLI and automation workflows
-
-Do not implement these future systems speculatively unless requested, but avoid designs that make them awkward.
+- 在可能时优先纯逻辑。
+- 分离解析、转换和副作用。
+- 把文件系统、进程、网络和平台交互放在清晰的边界之后。
 
 ---
 
-## Editing rules for the agent
+## 规划指导
 
-### 13. Before introducing a new crate, module, or abstraction
+### 11. 优先服从长期产品方向
 
-Ask implicitly through your design whether:
+在做局部设计决策时，优先选择符合 Yongle 长期方向的方案：
 
-- this belongs in an existing crate/module
-- this is reusable enough to justify a new unit
-- this keeps the workspace architecture cleaner
-- this increases or reduces conceptual load
+- 结构化知识，而不是松散文本块
+- 可检查、可复现的处理过程，而不是不透明的魔法行为
+- 以笔记内容作为事实源，再派生出不同视图或投影
+- 把学习工作流建模为显式过程，而不是模糊的聊天行为
+- 先做可复用的非 GUI 核心，再做 GUI
 
-Prefer fewer, more coherent crates over fragmentation.
+### 12. 预留未来子系统的空间
 
-### 14. When modifying public APIs
+不要把假设写死到会阻碍以下方向的程度：
 
-- preserve naming consistency
-- preserve conceptual consistency
-- update documentation comments
-- update tests if behavior changes
-- avoid breaking changes unless they clearly improve the design
+- Typst-first 或结构化编写管线
+- 从源文档中提取语义单元
+- 从同一语义源投影出 flashcard
+- incremental reading 工作流
+- agent / state-machine 驱动的学习编排
+- 跨平台桌面集成
+- CLI 与自动化工作流
 
-### 15. When adding TODOs
+除非被明确要求，不要提前实现这些未来系统；但也不要采用会让这些方向变得别扭的设计。
 
-Write them in English and make them specific.
+---
 
-Bad:
+## 面向代理的编辑规则
+
+### 13. 在引入新的 crate、模块或抽象之前
+
+先通过设计本身隐含地回答以下问题：
+
+- 它是否本来就应该属于现有 crate 或模块
+- 它是否真的足够可复用，值得拆成一个新单元
+- 它是否会让 workspace 架构更清晰
+- 它会增加还是降低概念负担
+
+优先选择更少但更连贯的 crate，而不是碎片化拆分。
+
+### 14. 修改公共 API 时
+
+- 保持命名一致性
+- 保持概念一致性
+- 更新文档注释
+- 如果行为发生变化，更新测试
+- 除非能明显改善设计，否则避免破坏性变更
+
+### 15. 添加 TODO 时
+
+使用英文，并写得具体。
+
+坏例子：
+
 - `TODO: improve this`
 
-Good:
+好例子：
+
 - `TODO: Split scheduler-independent review state from FSRS-specific parameters.`
 
 ---
 
-## Output expectations for the agent
+## 代理输出预期
 
-When implementing requested changes:
+在实现请求的变更时：
 
-- keep diffs focused
-- avoid unrelated refactors
-- do not rename broadly without good reason
-- document new public items
-- maintain English comments/doc comments
-- preserve workspace coherence
+- 保持 diff 聚焦
+- 避免无关重构
+- 没有充分理由时不要大范围重命名
+- 为新的公共项补充文档
+- 保持代码注释和 doc comments 为英文
+- 维护 workspace 的整体一致性
 
-If a requested change conflicts with these rules, prefer the rule set unless the user explicitly overrides it.
-
+如果用户请求与这些规则冲突，除非用户明确覆盖，否则以本规则集为准。
