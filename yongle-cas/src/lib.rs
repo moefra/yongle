@@ -13,10 +13,14 @@ pub type PinnedWrite = Pin<Box<dyn AsyncWrite + Send + 'static>>;
 pub type PinnedIo = Pin<Box<dyn ReadAndWrite + Send + 'static>>;
 type Result<T> = ::std::result::Result<T, CasError>;
 
+#[derive(Debug, Clone)]
+pub struct ReadRequest {
+    id: BlobId,
+    range: Option<(u64, u64)>,
+}
+
 #[async_trait]
 pub trait CasRead {
-    /// Returns `true` if the blob exists in the CAS.
-    async fn contains(&self, id: &BlobId) -> Result<bool>;
     /// Returns the blob stat if it exists in the CAS.
     async fn stat(&self, id: &BlobId) -> Result<Option<BlobStat>>;
     /// Opens the blob for reading.
@@ -40,11 +44,8 @@ pub trait CasWrite {
     /// - `reader` is the stream to store.
     ///
     /// Returns a `Descriptor` on success.
-    async fn put_stream(
-        &self,
-        expected: Option<&Digest>,
-        reader: &mut PinnedRead,
-    ) -> Result<Descriptor>;
+    async fn put_stream(&self, expected: Option<&Digest>, reader: PinnedRead)
+    -> Result<Descriptor>;
 }
 
 /// This trait is the combination of `CasReade` and `CasWrite`.
