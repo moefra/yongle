@@ -13,6 +13,11 @@ license.workspace = true
 semver.workspace = true
 thiserror.workspace = true
 unicode-ident.workspace = true
+url.workspace = true
+rkyv.workspace = true
+serde.workspace = true
+getrandom.workspace = true
+
 
 [lints]
 workspace = true

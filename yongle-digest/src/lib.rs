@@ -8,7 +8,18 @@ pub mod blake3;
 pub mod sha256;
 
 /// A generic digest type that contains a hash value.
-#[derive(Debug, PartialEq, Eq, Clone, Hash)]
+#[derive(
+    Debug,
+    PartialEq,
+    Eq,
+    Clone,
+    Hash,
+    rkyv::Archive,
+    rkyv::Deserialize,
+    rkyv::Serialize,
+    serde::Deserialize,
+    serde::Serialize,
+)]
 pub enum Digest {
     /// A BLAKE3 hash.
     Blake3(blake3::Hash),

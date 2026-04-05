@@ -12,6 +12,7 @@ license = "GPL-3.0-or-later"
 members = [
     "ylctl",
     "yongle-cas",
+    "yongle-cas-admin",
     "yongle-cas-meta",
     "yongle-cas-types",
     "yongle-core",
@@ -19,6 +20,7 @@ members = [
     "yongle-gc",
     "yongle-id",
     "yongle-manifest",
+    "yongle-object",
     "yongle-primitives",
 ]
 default-members = ["yongle-core"]
@@ -30,7 +32,6 @@ expect_used = "deny"
 panic = "deny"
 
 [workspace.lints.rustdoc]
-missing_docs = "deny"
 broken_intra_doc_links = "deny"
 invalid_codeblock_attributes = "deny"
 invalid_html_tags = "deny"
@@ -76,12 +77,14 @@ yongle-cas-types = { path = "./yongle-cas-types" }
 yongle-gc = { path = "./yongle-gc" }
 yongle-manifest = { path = "./yongle-manifest" }
 yongle-cas-meta = { path = "./yongle-cas-meta" }
+yongle-cas-admin = { path = "./yongle-cas-admin" }
+yongle-object = { path = "./yongle-object" }
 
 # rendering engine
 typst = "0.14"
 
 # io
-tokio = { version = "1.50", features = ["full"] }
+tokio = { version = "1.51", features = ["full"] }
 
 # serialization
 serde_core = "1.0"
@@ -94,7 +97,7 @@ eyre = "0.6"
 color-eyre = "0.6"
 tracing = "0.1"
 
-# collections
+# data structures
 camino = "1.2"
 papaya = "0.2"
 smol_str = { version = "0.3", features = ["std", "serde"] }
@@ -104,10 +107,14 @@ nohash-hasher = "0.2"
 arrayvec = "0.7"
 
 # micro utilities
-unicode-ident = "1.0"
-semver = "1.0"
 async-trait = "0.1"
 hex = "0.4"
+getrandom = "0.4"
+
+# standard implements
+unicode-ident = "1.0"
+semver = "1.0"
+url = "2.5"
 
 # memory management
 mimalloc = "0.1"

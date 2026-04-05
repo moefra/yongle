@@ -1,5 +1,5 @@
 [package]
-name = "yongle-cas-types"
+name = "yongle-cas-admin"
 version.workspace = true
 authors.workspace = true
 description.workspace = true
@@ -10,11 +10,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
-yongle-digest.workspace = true
-thiserror.workspace = true
-eyre.workspace = true
-rkyv.workspace = true
-serde.workspace = true
+yongle-cas-types.workspace = true
 
 [lints]
 workspace = true

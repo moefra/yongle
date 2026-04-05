@@ -9,6 +9,11 @@ homepage.workspace = true
 edition.workspace = true
 license.workspace = true
 
+
+[lints]
+workspace = true
+
+
 [dependencies]
 nohash-hasher.workspace = true
 ahash.workspace = true
